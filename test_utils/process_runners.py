@@ -78,6 +78,7 @@ class TCPProcessRunner(object):
                                    self._wait_for_timeout)
 
         atexit.register(self.tearDown)
+        return self._process
 
     def _wait_for_running(self, address, timeout=10):
         process = self.process
