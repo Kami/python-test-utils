@@ -1,1 +1,2 @@
-*.log
+.tox/
+docs/_build
