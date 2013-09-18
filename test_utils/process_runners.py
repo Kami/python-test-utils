@@ -69,11 +69,12 @@ class TCPProcessRunner(object):
         self._process = None
 
     def setUp(self, *args, **kwargs):
-
+        env = os.environ.copy()
         with open(self._log_path, 'a+') as log_fp:
             self.process = subprocess.Popen(self._args, shell=False,
                                             cwd=self._cwd, stdout=log_fp,
-                                            stderr=log_fp)
+                                            stderr=log_fp,
+                                            env=env)
             self._wait_for_running(self._wait_for_address,
                                    self._wait_for_timeout)
 
