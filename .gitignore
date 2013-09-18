@@ -1,2 +1,6 @@
+*.log
 .tox/
 docs/_build
+build/
+dist/
+*.egg-info
