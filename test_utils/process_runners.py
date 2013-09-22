@@ -39,10 +39,10 @@ class TCPProcessRunner(object):
 
         :param wait_for_address: IP address and port to which we will connect
                                  to, to determine if the process is running.
-        :type wait_for_address: ``tuple`` (e.g. ('127.0.0.1', 8080))
+        :type wait_for_address: ``tuple`` (e.g. ``('127.0.0.1', 8080)``)
 
-        :param wait_for_timeout: How long to wait for the process to start
-                                 before giving up.
+        :param wait_for_timeout: How long to wait (in seconds) for the process
+                                 to start before giving up.
         :type wait_for_timeout: ``float``
 
         :param cwd: Working directory for the subprocess.Popen. (optional)
@@ -69,6 +69,9 @@ class TCPProcessRunner(object):
         self._process = None
 
     def setUp(self, *args, **kwargs):
+        """
+        Start a managed process and wait for it to come online.
+        """
         env = os.environ.copy()
         with open(self._log_path, 'a+') as log_fp:
             self.process = subprocess.Popen(self._args, shell=False,
@@ -82,6 +85,17 @@ class TCPProcessRunner(object):
         return self._process
 
     def _wait_for_running(self, address, timeout=10):
+        """
+        Wait for the process to come online.
+
+        :param address: IP address and port to which we will connect
+                        to, to determine if the process is running.
+        :type address: ``tuple`` (e.g. ``('127.0.0.1', 8080)``)
+
+        :param timeout: How long to wait (in seconds) for the process to start
+                        before giving up.
+        :type timeout: ``float``
+        """
         process = self.process
         start = time.time()
 
@@ -108,5 +122,12 @@ class TCPProcessRunner(object):
             raise RuntimeError('Couldn\'t connect to server')
 
     def tearDown(self, *args, **kwargs):
+        """
+        Terminate the running process.
+
+        Note: This function does not need to be called manually. Once you call
+        :func:`setUp` function it automatically registers this function to run
+        on the process exit.
+        """
         if self.process:
             self.process.terminate()
