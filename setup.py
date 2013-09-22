@@ -30,7 +30,7 @@ setup(
     author='Tomaz Muraus',
     author_email='tomaz+pypi@tomaz.me',
     description='A collection of utility functions and classes which make' +
-                'writing functional and integration tests easier.',
+                'writing and running functional and integration tests easier.',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
