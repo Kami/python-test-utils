@@ -41,7 +41,7 @@ TCPProcessRunner allows you to manage a long running process which exposes a
 TCP interface. It detects if a process is running by connecting to the
 specified IP and port.
 
-Example usage:
+Example usage
 ~~~~~~~~~~~~~
 
 .. literalinclude:: /examples/tcp_process_runner.py
