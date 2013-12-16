@@ -104,8 +104,10 @@ class TCPProcessRunner(object):
 
             if process.returncode:
                 # Process exited early
-                raise RuntimeError('Process failed to start and exited with'
-                                   ' code: %s' % (process.returncode))
+                msg = ('Process failed to start and exited with code: %s.\n'
+                       'More info might be available in the following log '
+                       'file: %s' % (process.returncode, self._log_path))
+                raise RuntimeError(msg)
 
             try:
                 s = socket.create_connection(address)
